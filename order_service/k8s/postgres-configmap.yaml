@@ -1,0 +1,14 @@
+# PostgreSQL StatefulSet ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-db-config
+labels:
+  app: postgresql-db
+data:
+  POSTGRES_HOST: postgres
+  POSTGRES_DB: orders
+#  use in secret base64 encoding
+#  POSTGRES_USER: postgres
+#  POSTGRES_PASSWORD: root
+  PGDATA: /data/pgdata
