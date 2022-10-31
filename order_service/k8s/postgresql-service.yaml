@@ -6,7 +6,10 @@ metadata:
 spec:
   selector:
     app: postgresql-db
-  type: LoadBalancer
+  type: NodePort
   ports:
-    - port: 5433
+    - name: postgres
+      port: 5432
       targetPort: 5432
+
+#  minikube service --url postgresql-db-service

@@ -28,6 +28,9 @@ spec:
 # Secret from postgres-secret
             - secretRef:
                 name: postgres-db-secret
+          ports:
+            - containerPort: 5432
+              name: postgres
 # Volume Claim
   volumeClaimTemplates:
     - metadata:
