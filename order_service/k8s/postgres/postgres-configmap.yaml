@@ -6,7 +6,9 @@ metadata:
   labels:
     app: postgresql-db
 data:
-#  POSTGRES_HOST: postgres
+  POSTGRES_HOST: 192.168.49.2
+#  Database nodePort 32123
+  POSTGRES_PORT: '32123'
   POSTGRES_DB: orders
 #  use in secret base64 encoding
 #  POSTGRES_USER: postgres

@@ -1,0 +1,47 @@
+#Produscer deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer
+spec:
+  selector:
+    matchLabels:
+      app: producer
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+      containers:
+        - name: producer
+          image: order_service:latest
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DB_HOST   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-db-config  # name of configMap
+                  key: POSTGRES_HOST
+            - name: DB_PORT   # Setting Database host address from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-db-config
+                  key: POSTGRES_PORT
+            - name: DB_NAME  # Database port from configMap
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-db-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER  # Setting Database username from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-db-secret # Secret Name
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD # Setting Database password from Secret
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-db-secret
+                  key: POSTGRES_PASSWORD

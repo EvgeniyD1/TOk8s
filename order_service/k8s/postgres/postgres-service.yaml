@@ -9,7 +9,9 @@ spec:
   type: NodePort
   ports:
     - name: postgres
+      nodePort: 32123
       port: 5432
       targetPort: 5432
 
-#  minikube service --url postgresql-db-service
+#  minikube service --url postgres-db-service
+#  minikube service postgres-db-service
