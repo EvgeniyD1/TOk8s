@@ -1,0 +1,41 @@
+#Kafdrop deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafdrop
+  namespace: kafka
+spec:
+  selector:
+    matchLabels:
+      app: kafdrop
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kafdrop
+    spec:
+      containers:
+        - name: kafdrop
+          image: obsidiandynamics/kafdrop:latest
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 9000
+          env:
+            - name: KAFKA_BROKERCONNECT
+              value: 192.168.49.2:9092
+---
+#Kafdrop service
+kind: Service
+apiVersion: v1
+metadata:
+  name: kafdrop-service
+  namespace: kafka
+  labels:
+    name: kafdrop-service
+spec:
+  ports:
+    - port: 9000
+      targetPort: 9000
+      protocol: TCP
+  selector:
+    app: kafdrop

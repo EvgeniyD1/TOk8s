@@ -1,0 +1,7 @@
+https://strimzi.io/quickstarts/
+
+1. kubectl create namespace kafka
+2. kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka
+3. kubectl create -f debezium-cluster.yaml
+4. kubectl create -f debezium-connect-cluster.yaml
+5. kubectl create -f debezium-connector-postgres.yaml

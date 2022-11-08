@@ -2,20 +2,22 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnector
 metadata:
   name: debezium-connector-postgres
-  namespace: debezium-example
+  namespace: kafka
   labels:
     strimzi.io/cluster: debezium-connect-cluster
 spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   tasksMax: 1
   config:
-    tasks.max: 1
     database.hostname: 192.168.49.2
     database.port: 32123
     database.user: postgres
     database.password: root
+#    database.user: ${secrets:kafka/debezium-secret:username}
+#    database.password: ${secrets:kafka/debezium-secret:password}
     database.dbname: orders
     database.server.name: orders_server
+    topic.prefix: orders_server
     database.include.list: public.outbox
     transforms: unwrap
     transforms.unwrap.type: io.debezium.transforms.ExtractNewRecordState

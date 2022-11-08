@@ -2,9 +2,9 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: connector-configuration-role
-  namespace: debezium-example
+  namespace: kafka
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
-    resourceNames: ["postgres-db-secret"]
+    resourceNames: ["debezium-secret"]
     verbs: ["get"]

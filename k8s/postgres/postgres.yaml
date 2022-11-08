@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: postgresql-db
-          image: debezium/postgres:latest
+          image: debezium/postgres
           imagePullPolicy: "IfNotPresent"
           volumeMounts:
             - name: postgresql-db-disk
@@ -39,4 +39,4 @@ spec:
         accessModes: ["ReadWriteOnce"]
         resources:
           requests:
-            storage: 1Gi
+            storage: 256Mi

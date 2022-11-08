@@ -2,11 +2,13 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnect
 metadata:
   name: debezium-connect-cluster
-  namespace: debezium-example
+  namespace: kafka
   annotations:
     strimzi.io/use-connector-resources: "true"
 spec:
-  version: 3.1.0
+  version: 3.3.1
+# if image is present
+#  image: 10.111.96.42/debezium-connect-postgres:latest
   replicas: 1
   bootstrapServers: debezium-cluster-kafka-bootstrap:9092
   config:
@@ -20,10 +22,11 @@ spec:
     config.storage.replication.factor: -1
     offset.storage.replication.factor: -1
     status.storage.replication.factor: -1
+# if image is not present
   build:
     output:
       type: docker
-      image: 10.103.10.61/debezium-connect-postgres:latest
+      image: 10.111.96.42/debezium-connect-postgres:latest
     plugins:
       - name: debezium-postgres-connector
         artifacts:
