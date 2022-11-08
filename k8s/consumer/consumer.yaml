@@ -17,3 +17,24 @@ spec:
         - name: consumer
           image: delivery_service:latest
           imagePullPolicy: "IfNotPresent"
+          env:
+            - name: BOOTSTRAP_SERVERS_CONFIG
+#             need to configure
+              value: 172.17.0.5:9092
+---
+#Consumer service
+kind: Service
+apiVersion: v1
+metadata:
+  name: consumer-service
+  labels:
+    name: consumer-service
+spec:
+  ports:
+    - nodePort: 30164
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: consumer
+  type: NodePort
