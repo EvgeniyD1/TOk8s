@@ -22,7 +22,8 @@ spec:
             - containerPort: 9000
           env:
             - name: KAFKA_BROKERCONNECT
-              value: 192.168.49.2:9092
+#             need to configure
+              value: 172.17.0.5:9092
 ---
 #Kafdrop service
 kind: Service

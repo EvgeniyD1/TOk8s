@@ -7,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: producer
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
@@ -45,3 +45,22 @@ spec:
                 secretKeyRef:
                   name: postgres-db-secret
                   key: POSTGRES_PASSWORD
+---
+#Produscer service
+kind: Service
+apiVersion: v1
+metadata:
+  name: producer-service
+  labels:
+    name: producer-service
+spec:
+  ports:
+    - nodePort: 30163
+      port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: producer
+  type: NodePort
+
+#  minikube service producer-service
